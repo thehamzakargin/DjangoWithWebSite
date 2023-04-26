@@ -1,0 +1,37 @@
+{% extends 'layouts.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href={% static 'syntheticPlayer/css/style.css' %}>
+{% endblock %}
+
+{% block page_title %}
+    Subscription
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3">
+                <!--menu-->
+                {% include 'syntheticPlayer/partials/_categories.html' %}
+                
+            </div>
+            <div class="col-9">
+                <!--content-->
+                {% if page_obj.object_list|length == 0 %}
+                    <div class="alert alert-warning">not found subscriptions.</div>
+                {% endif %}
+
+                {% for subscriptions in page_obj.object_list %}                    
+                    {% include 'syntheticPlayer/partials/_subscriptions.html' %}                
+                {% endfor %}
+                {% include 'syntheticPlayer/partials/_pagination.html' %}
+            </div>
+        </div>
+    </div>              
+{% endblock %}
+
+{% block js_files %}
+    <script src="{% static 'syntheticPlayer/js/script.js' %}"></script>
+{% endblock %}

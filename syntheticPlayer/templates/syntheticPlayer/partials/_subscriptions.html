@@ -1,0 +1,18 @@
+{% load static %}
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-4">
+            <img class="img-fluid rounded-start" src="{% static 'syntheticPlayer/img/'|add:subscriptions.imageUrl %}" alt="{{ subscriptions.title }}">
+        </div>
+        <div class="col-8">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'subscriptions_details' subscriptions.slug %}">
+                        {{ subscriptions.title }}
+                    </a>
+                </h5>
+                <p class="card-text">{{ subscriptions.descriptions | truncatechars:15 }}</p>                
+                <p>{{ subscriptions.date | date:'SHORT_DATE_FORMAT' }}</p>
+            </div>
+        </div>
+</div>

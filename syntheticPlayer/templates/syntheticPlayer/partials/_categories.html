@@ -1,0 +1,9 @@
+<div class="list-group">
+    <a href="/subscriptions"class="list-group-item list-group-item-action"> ALL Category </a>
+    {% for categories in categories %}
+        <a href='{% url 'subscriptions_by_category' categories.slug %}' 
+        class="list-group-item list-group-item-action  {% if seciliKategori == categories.slug %}active{% endif %}">
+        {{ categories.name | title }} 
+    </a>
+    {% endfor %}
+</div>
