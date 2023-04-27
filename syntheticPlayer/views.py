@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 
 
 def index(request):
-    subscriptions = syntheticPlayer.objects.filter(isActive=1)
+    subscriptions = syntheticPlayer.objects.filter(isActive=1, isHome=1)
     kategoriler = categories.objects.all()
 
     return render(request, 'syntheticPlayer/index.html', {
@@ -19,19 +19,15 @@ def index(request):
 def search(request):
     if "q" in request.GET and request.GET["q"] !="":
         q = request.GET["q"]
-        subscriptions = syntheticPlayer.objects.filter(isActive=True,title__contains=q).order_by("date")
+        subscriptions = syntheticPlayer.objects.filter(isActive=True, title__contains=q).order_by("date")
         kategoriler = categories.objects.all()
     else:
         return redirect("/subscriptions")
     
-    paginator = Paginator(subscriptions, 2)
-    page = request.GET.get('page',1)
-    page_obj = paginator.page(page)
     
-    
-    return render(request, 'syntheticPlayer/list.html', {
+    return render(request, 'syntheticPlayer/search.html', {
         'categories': kategoriler,
-        'page_obj': page_obj,
+        'subscriptions': subscriptions,
     })
     
 
@@ -53,7 +49,7 @@ def getSubscriptionsByCategory(request, slug):
     page_obj = paginator.page(page)
     
     
-    return render(request, 'syntheticPlayer/index.html', {
+    return render(request, 'syntheticPlayer/list.html', {
         'categories': kategoriler,
         'page_obj': page_obj,
         'seciliKategori': slug
